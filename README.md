@@ -58,7 +58,7 @@ The table below maps our support intentions to which configurations have been va
       <th>14</th>
       <td align="center"></td>
       <td align="center"></td>
-      <td align="center"></td>
+      <td align="center">✓</td>
       <td align="center"></td>
       <td align="center">✓</td>
       <td align="center">✓</td>
@@ -67,7 +67,7 @@ The table below maps our support intentions to which configurations have been va
       <th>16</th>
       <td align="center"></td>
       <td align="center"></td>
-      <td align="center"></td>
+      <td align="center">✓</td>
       <td align="center"></td>
       <td align="center">✓</td>
       <td align="center">✓</td>
@@ -76,7 +76,7 @@ The table below maps our support intentions to which configurations have been va
       <th>18</th>
       <td align="center"></td>
       <td align="center"></td>
-      <td align="center"></td>
+      <td align="center">✓</td>
       <td align="center"></td>
       <td align="center">✓</td>
       <td align="center">✓</td>
