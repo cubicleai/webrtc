@@ -3,7 +3,6 @@
 .eslintrc
 appveyor.yml
 build/
-ci/
 dist/*/test/
 docs/
 karma/
