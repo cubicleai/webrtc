@@ -9,7 +9,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "0.6.1",
+  "version": "0.7.0",
   "author": "Alan K <ack@modeswitch.org> (http://blog.modeswitch.org)",
   "contributors": [
     {

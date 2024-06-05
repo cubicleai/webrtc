@@ -1,3 +1,10 @@
+# 0.7.0
+
+- Updated to WebRTC M96.
+- Added `target` property to event objects.
+- Support for multiple sinks per audio source.
+- Fixed RTCRtpSender::GetParameters.
+
 # 0.6.1
 
 - Reduce size of npm package.
@@ -21,7 +28,7 @@
 
 # Forked to @astronautlabs/webrtc
 
-The previous changelog entries correspond to releases of the [`wrtc`](https://github.com/node-webrtc/node-webrtc) 
+The previous changelog entries correspond to releases of the [`wrtc`](https://github.com/node-webrtc/node-webrtc)
 package from which `@astronautlabs/webrtc` was forked.
 
 # 0.4.6
@@ -76,8 +83,8 @@ MediaStreams in node-webrtc can be constructed with arbitrary IDs. For example,
 the following MediaStream, `stream`, has its ID set to "foo".
 
 ```js
-const stream = new MediaStream({ id: 'foo' });
-stream.id === 'foo';  // true
+const stream = new MediaStream({ id: "foo" });
+stream.id === "foo"; // true
 ```
 
 # 0.4.3
@@ -233,10 +240,10 @@ This release of node-webrtc adds non-standard, programmatic audio APIs in the
 form of RTCAudioSource and RTCAudioSink. These APIs are similar to the
 previously added RTCVideoSource and RTCVideoSink APIs. With these APIs, you can
 
-* Pass audio samples to RTCAudioSource via the `onData` method. Then use the
+- Pass audio samples to RTCAudioSource via the `onData` method. Then use the
   RTCAudioSource's `createTrack` method to create a local audio
   MediaStreamTrack.
-* Construct an RTCAudioSink from a local or remote audio MediaStreamTrack. The
+- Construct an RTCAudioSink from a local or remote audio MediaStreamTrack. The
   RTCAudioSink will emit a "data" event every time audio samples are received.
   When you're finished, stop the RTCAudioSink by calling `stop`.
 
@@ -244,18 +251,18 @@ Because these APIs are non-standard, they are exposed via a `nonstandard`
 property on node-webrtc's exports object. For example,
 
 ```js
-const { RTCAudioSource, RTCAudioSink } = require('wrtc').nonstandard;
+const { RTCAudioSource, RTCAudioSink } = require("wrtc").nonstandard;
 
 const source = new RTCAudioSource();
 const track = source.createTrack();
 const sink = new RTCAudioSink(track);
 
 const sampleRate = 8000;
-const samples = new Int16Array(sampleRate / 100);  // 10 ms of 16-bit mono audio
+const samples = new Int16Array(sampleRate / 100); // 10 ms of 16-bit mono audio
 
 const data = {
   samples,
-  sampleRate
+  sampleRate,
 };
 
 const interval = setInterval(() => {
@@ -263,7 +270,7 @@ const interval = setInterval(() => {
   source.onData(data);
 });
 
-sink.ondata = data => {
+sink.ondata = (data) => {
   // Do something with the received audio samples.
 };
 
@@ -292,11 +299,11 @@ dictionary RTCAudioData {
 };
 ```
 
-* Calling `createTrack` will return a local audio MediaStreamTrack whose source
+- Calling `createTrack` will return a local audio MediaStreamTrack whose source
   is the RTCAudioSource.
-* Calling `onData` with RTCAudioData pushes a new audio samples to every
+- Calling `onData` with RTCAudioData pushes a new audio samples to every
   non-stopped local audio MediaStreamTrack created with `createTrack`.
-* RTCAudioData should represent 10 ms worth of 16-bit audio samples.
+- RTCAudioData should represent 10 ms worth of 16-bit audio samples.
 
 #### RTCAudioSink
 
@@ -309,12 +316,12 @@ interface RTCAudioSink {
 };
 ```
 
-* RTCAudioSink's constructor accepts a local or remote audio MediaStreamTrack.
-* As long as neither the RTCAudioSink nor the RTCAudioSink's MediaStreamTrack
+- RTCAudioSink's constructor accepts a local or remote audio MediaStreamTrack.
+- As long as neither the RTCAudioSink nor the RTCAudioSink's MediaStreamTrack
   are stopped, the RTCAudioSink will raise a "data" event any time RTCAudioData
   is received.
-* The "data" event has all the properties of RTCAudioData.
-* RTCAudioSink must be stopped by calling `stop`.
+- The "data" event has all the properties of RTCAudioData.
+- RTCAudioSink must be stopped by calling `stop`.
 
 ### RTCVideoFrame `rotation`
 
@@ -335,10 +342,10 @@ EventListener instances now support [`handleEvent`](https://developer.mozilla.or
 This release of node-webrtc adds non-standard, programmatic video APIs in the
 form of RTCVideoSource and RTCVideoSink. With these APIs, you can
 
-* Pass [I420](https://wiki.videolan.org/YUV/#I420) frames to RTCVideoSource via
+- Pass [I420](https://wiki.videolan.org/YUV/#I420) frames to RTCVideoSource via
   the `onFrame` method. Then use RTCVideoSource's `createTrack` method to create
   a local video MediaStreamTrack.
-* Construct an RTCVideoSink from a local or remote video MediaStreamTrack. The
+- Construct an RTCVideoSink from a local or remote video MediaStreamTrack. The
   RTCVideoSink will emit a "frame" event every time an I420 frame is received.
   When you're finished, stop the RTCVideoSink by calling `stop`.
 
@@ -346,7 +353,7 @@ Because these APIs are non-standard, they are exposed via a `nonstandard`
 property on node-webrtc's exports object. For example,
 
 ```js
-const { RTCVideoSource, RTCVideoSink } = require('wrtc').nonstandard;
+const { RTCVideoSource, RTCVideoSink } = require("wrtc").nonstandard;
 
 const source = new RTCVideoSource();
 const track = source.createTrack();
@@ -400,11 +407,11 @@ dictionary RTCVideoFrame {
 };
 ```
 
-* Calling `createTrack` will return a local video MediaStreamTrack whose source
+- Calling `createTrack` will return a local video MediaStreamTrack whose source
   is the RTCVideoSource.
-* Calling `onFrame` with an RTCVideoFrame pushes a new video frame to every
+- Calling `onFrame` with an RTCVideoFrame pushes a new video frame to every
   non-stopped local video MediaStreamTrack created with `createTrack`.
-* An RTCVideoFrame represents an I420 frame.
+- An RTCVideoFrame represents an I420 frame.
 
 #### RTCVideoSink
 
@@ -417,12 +424,12 @@ interface RTCVideoSink {
 };
 ```
 
-* RTCVideoSink's constructor accepts a local or remote video MediaStreamTrack.
-* As long as neither the RTCVideoSink nor the RTCVideoSink's MediaStreamTrack
+- RTCVideoSink's constructor accepts a local or remote video MediaStreamTrack.
+- As long as neither the RTCVideoSink nor the RTCVideoSink's MediaStreamTrack
   are stopped, the RTCVideoSink will raise a "frame" event any time an
   RTCVideoFrame is received.
-* The "frame" event has a property, `frame`, of type RTCVideoFrame.
-* RTCVideoSink must be stopped by calling `stop`.
+- The "frame" event has a property, `frame`, of type RTCVideoFrame.
+- RTCVideoSink must be stopped by calling `stop`.
 
 #### `i420ToRgba` and `rgbaToI420`
 
@@ -432,7 +439,7 @@ and RGBA frames. WebRTC expects I420, whereas APIs like the
 RGBA, so these functions are useful for converting between. For example,
 
 ```js
-const { i420ToRgba, rgbaToI420 } = require('wrtc').nonstandard;
+const { i420ToRgba, rgbaToI420 } = require("wrtc").nonstandard;
 
 const width = 640;
 const height = 480;
@@ -510,13 +517,13 @@ media will be transmitted. You can confirm by checking `bytesSent` and
 `bytesReceived` in `getStats`.
 
 ```js
-const { getUserMedia } = require('wrtc');
+const { getUserMedia } = require("wrtc");
 
 getUserMedia({
   audio: true,
-  video: true
-}).then(stream => {
-  stream.getTracks().forEach(track => stop());
+  video: true,
+}).then((stream) => {
+  stream.getTracks().forEach((track) => stop());
 });
 ```
 
@@ -533,34 +540,32 @@ RTCRtpReceiver-level `getStats` APIs are implemented at this time.
 
 ```js
 // Legacy API
-pc.getStats(
-  response => { /* ... */ },
-  console.error
-);
+pc.getStats((response) => {
+  /* ... */
+}, console.error);
 
 // Standards-compliant API
-pc.getStats().then(
-  report => { /* ... */ },
-  console.error
-);
+pc.getStats().then((report) => {
+  /* ... */
+}, console.error);
 ```
 
 ### Unified Plan and `sdpSemantics`
 
 This release adds support for RTCRtpTransceivers and Unified Plan SDP via
 
-* A non-standard RTCConfiguration option, `sdpSemantics`, and
-* An environment variable, `SDP_SEMANTICS`.
+- A non-standard RTCConfiguration option, `sdpSemantics`, and
+- An environment variable, `SDP_SEMANTICS`.
 
 Construct an RTCPeerConnection with `sdpSemantics` set to "unified-plan" or
 launch your application with `SDP_SEMANTICS=unified-plan` to enable
 RTCRtpTransceiver support; otherwise, "plan-b" is the default.
 
 ```js
-const { RTCPeerConnection } = require('wrtc');
+const { RTCPeerConnection } = require("wrtc");
 
 const pc = new RTCPeerConnection({
-  sdpSemantics: 'unified-plan'  // default is "plan-b"
+  sdpSemantics: "unified-plan", // default is "plan-b"
 });
 ```
 
@@ -600,20 +605,20 @@ only the following RTCRtpTransceiverInit dictionary members are supported
 - `streams`
 
 ```js
-const assert = require('assert');
-const { MediaStream, RTCPeerConnection, RTCRtpTransceiver } = require('wrtc');
+const assert = require("assert");
+const { MediaStream, RTCPeerConnection, RTCRtpTransceiver } = require("wrtc");
 
 const pc = new RTCPeerConnection({
-  sdpSemantics: 'unified-plan'
+  sdpSemantics: "unified-plan",
 });
 
-const t1 = pc.addTransceiver('audio', {
-  direction: 'recvonly'
+const t1 = pc.addTransceiver("audio", {
+  direction: "recvonly",
 });
 
 const t2 = pc.addTransceiver(t1.receiver.track, {
-  direction: 'sendonly',
-  streams: [new MediaStream()]
+  direction: "sendonly",
+  streams: [new MediaStream()],
 });
 ```
 
@@ -706,7 +711,7 @@ excluding the "addtrack" and "removetrack" events. You can construct
 MediaStreams as follows:
 
 ```js
-const { MediaStream } = require('wrtc');
+const { MediaStream } = require("wrtc");
 
 const stream1 = new MediaStream();
 const stream2 = new MediaStream(stream1);
@@ -856,24 +861,24 @@ still have a ways to go, but we're now testing against
 
 RTCPeerConnection's constructor now accepts the following standard properties:
 
-* `bundlePolicy`
-* `iceCandidatePoolSize`
-* `iceServers` (no support for OAuth yet)
-* `iceTransportPolicy`
-* `rtcpMuxPolicy`
+- `bundlePolicy`
+- `iceCandidatePoolSize`
+- `iceServers` (no support for OAuth yet)
+- `iceTransportPolicy`
+- `rtcpMuxPolicy`
 
 RTCConfiguration also accepts a non-standard property, `portRange`. This
 property constrains the port range used by the RTCPeerConnection's ICE
 transports. For example,
 
 ```js
-const { RTCPeerConnection } = require('wrtc');
+const { RTCPeerConnection } = require("wrtc");
 
 const pc = new RTCPeerConnection({
   portRange: {
     min: 10000, // defaults to 0
-    max: 20000  // defaults to 65535
-  }
+    max: 20000, // defaults to 65535
+  },
 });
 ```
 
@@ -881,22 +886,22 @@ const pc = new RTCPeerConnection({
 
 RTCPeerConnection now supports two new methods:
 
-* `getConfiguration`
-* `setConfiguration`
+- `getConfiguration`
+- `setConfiguration`
 
 RTCPeerConnection now supports the following properties:
 
-* `canTrickleIceCandidates` (always returns `null` for now)
-* `connectionState` (derived from `iceConnectionState`)
-* `currentLocalDescription`
-* `currentRemoteDescription`
-* `pendingLocalDescription`
-* `pendingRemoteDescription`
+- `canTrickleIceCandidates` (always returns `null` for now)
+- `connectionState` (derived from `iceConnectionState`)
+- `currentLocalDescription`
+- `currentRemoteDescription`
+- `pendingLocalDescription`
+- `pendingRemoteDescription`
 
 RTCPeerConnection now supports the following events:
 
-* "connectionstatechange"
-* "negotiationneeded"
+- "connectionstatechange"
+- "negotiationneeded"
 
 ### RTCOfferOptions and RTCAnswerOptions
 
@@ -904,9 +909,9 @@ RTCPeerConnection's `createOffer` method now accepts RTCOfferOptions, and
 RTCPeerConnection's `createAnswer` method now accepts RTCAnswerOptions.
 RTCOfferOptions supports
 
-* `iceRestart`
-* `offerToReceiveAudio`
-* `offerToReceiveVideo`
+- `iceRestart`
+- `offerToReceiveAudio`
+- `offerToReceiveVideo`
 
 Both RTCOfferOptions and RTCAnswerOptions support `voiceActivityDetection`.
 
@@ -914,22 +919,22 @@ Both RTCOfferOptions and RTCAnswerOptions support `voiceActivityDetection`.
 
 RTCPeerConnection's `createDataChannel` method now accepts
 
-* `id`
-* `maxPacketLifeTime`
-* `maxRetransmits`
-* `negotiated`
-* `ordered`
-* `protocol`
+- `id`
+- `maxPacketLifeTime`
+- `maxRetransmits`
+- `negotiated`
+- `ordered`
+- `protocol`
 
 ### RTCDataChannel
 
 RTCDataChannel supports the following properties:
 
-* `id`
-* `maxRetransmits`
-* `ordered`
-* `priority` (always returns "high")
-* `protocol`
+- `id`
+- `maxRetransmits`
+- `ordered`
+- `priority` (always returns "high")
+- `protocol`
 
 RTCDataChannel's `send` method now supports sending Blobs provided by
 [jsdom](https://github.com/jsdom/jsdom); however, there is no support for
@@ -939,9 +944,9 @@ receiving Blobs.
 
 Added top-level exports for
 
-* RTCDataChannel
-* RTCDataChannelEvent
-* RTCPeerConnectionIceEvent
+- RTCDataChannel
+- RTCDataChannelEvent
+- RTCPeerConnectionIceEvent
 
 ## Bug Fixes
 
