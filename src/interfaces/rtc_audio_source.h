@@ -1,4 +1,5 @@
 /**
+ * Copyright (c) 2022 Cubicle, Inc. All rights reserved.
  * Copyright (c) 2022 Astronaut Labs, LLC. All rights reserved.
  * Copyright (c) 2019 The node-webrtc project authors. All rights reserved.
  *
@@ -9,7 +10,6 @@
  */
 #pragma once
 
-#include <atomic>
 #include <memory>
 
 #include <node-addon-api/napi.h>
@@ -41,32 +41,32 @@ class RTCAudioTrackSource : public webrtc::LocalAudioSource {
   }
 
   void PushData(RTCOnDataEventDict dict) {
-    webrtc::AudioTrackSinkInterface* sink = _sink;
-    if (sink && dict.numberOfFrames.IsJust()) {
-      sink->OnData(
+    if (dict.numberOfFrames.IsJust()) {
+      for (auto sink : _sinks)
+        sink->OnData(
           dict.samples,
           dict.bitsPerSample,
           dict.sampleRate,
           dict.channelCount,
           dict.numberOfFrames.UnsafeFromJust()
-      );
+        );
     }
     // HACK(mroberts): I'd rather we use a smart pointer.
     delete[] dict.samples;
   }
 
   void AddSink(webrtc::AudioTrackSinkInterface* sink) override {
-    _sink = sink;
+    _sinks.insert(sink);
   }
 
-  void RemoveSink(webrtc::AudioTrackSinkInterface*) override {
-    _sink = nullptr;
+  void RemoveSink(webrtc::AudioTrackSinkInterface* sink) override {
+    _sinks.erase(sink);
   }
 
  private:
   PeerConnectionFactory* _factory = PeerConnectionFactory::GetOrCreateDefault();
 
-  std::atomic<webrtc::AudioTrackSinkInterface*> _sink = {nullptr};
+  std::set<webrtc::AudioTrackSinkInterface*> _sinks;
 };
 
 class RTCAudioSource
