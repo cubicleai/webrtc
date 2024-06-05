@@ -2,7 +2,7 @@
 
 [![NPM](https://img.shields.io/npm/v/@cubicleai/wrtc.svg)](https://www.npmjs.com/package/@cubicleai/wrtc)
 
-Node.js bindings for `libwebrtc`, which implements [WebRTC M95](https://groups.google.com/g/discuss-webrtc/c/SfzpFc-dH-E/m/JHlMpLO1AAAJ). This project aims for spec-compliance and is tested using the W3C's [web-platform-tests](https://github.com/web-platform-tests/wpt) project. A number of [nonstandard APIs](docs/nonstandard-apis.md) for testing are also included.
+Node.js bindings for `libwebrtc`, which implements [WebRTC M96](https://groups.google.com/g/discuss-webrtc/c/Bp8OzBzipSc/m/0AC4OGhdAgAJ). This project aims for spec-compliance and is tested using the W3C's [web-platform-tests](https://github.com/web-platform-tests/wpt) project. A number of [nonstandard APIs](docs/nonstandard-apis.md) for testing are also included.
 
 # Install
 
