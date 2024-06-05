@@ -10,5 +10,7 @@ lib/
 node/
 out/
 private/
+src/test.*
 web-platform-tests/
 .env
+tsconfig.json
