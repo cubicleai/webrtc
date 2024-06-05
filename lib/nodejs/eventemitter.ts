@@ -23,6 +23,8 @@ export class EventEmitter {
 
     dispatchEvent(event) {
         let listeners = this._listeners = this._listeners || {};
+        
+        event.target = this;
 
         process.nextTick(() => {
             listeners = new Set(listeners[event.type] || []);
