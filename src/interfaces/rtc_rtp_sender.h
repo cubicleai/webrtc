@@ -100,7 +100,6 @@ namespace node_webrtc {
 		std::string kind;
 		napi_ref_ptr<MediaStreamTrack> track;
 		std::vector<napi_ref_ptr<MediaStream>> streams;
-		webrtc::RtpParameters parameters;
 		napi_ref_ptr<RTCDtlsTransport> transport;
 	};
 

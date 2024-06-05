@@ -76,6 +76,8 @@ namespace node_webrtc {
 	}
 
 	Napi::Value RTCRtpSender::GetParameters(const Napi::CallbackInfo& info) {
+		auto rtcSender = pc->getUnderlying(this);
+		auto parameters = rtcSender->GetParameters();
 		CONVERT_OR_THROW_AND_RETURN_NAPI(info.Env(), parameters, result, Napi::Value)
 			return result;
 	}
@@ -90,6 +92,8 @@ namespace node_webrtc {
 			Reject(deferred, ErrorFactory::CreateInvalidStateError(info.Env(), "Failed to set parameters"));
 			return deferred.Promise();
 		}
+
+		// auto parameters = rtcSender->GetParameters();
 
 		auto error = rtcSender->SetParameters(parameters);
 		if (error.ok()) {
